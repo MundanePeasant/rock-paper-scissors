@@ -1,51 +1,55 @@
-const moves = ['Rock', 'Paper', 'Scissors']
+const moves = ['rock', 'paper', 'scissors']
+var wins = 0;
+var losses = 0;
+var gameOver = false;
 
 function computerPlay (){
     return moves[Math.floor(Math.random() * moves.length)];
 }
 
-function playRound (playerSelection, computerSelection) {
-    const player = playerSelection.toLowerCase();
-    const computer = computerSelection.toLowerCase();
+function playRound (userInput){
+   
+    gameComplete();
 
-    if (player === computer){
-        return 0;
+    if(gameOver){
+        return;
     }
-    else if ((player === "rock" && computer === "scissors") ||
-             (player === "scissors" && computer === "paper") ||
-             (player === "paper" && computer === "rock")) {
-                 return 1;
-             }    
+
+    const computer = computerPlay();
+
+    if(userInput == computer){
+        console.log("It's a tie")
+    }
+    else if(computer == 'rock' && userInput == 'paper' ||
+            computer == 'paper' && userInput == 'scissors' ||
+            computer == 'scissors' && userInput == 'rock'){
+                document.getElementById("human").innerHTML = wins+1;
+                wins++;
+            }
     else {
-        return -1;
+        document.getElementById("alien").innerHTML = losses+1;
+        losses++;
     }
 }
 
-function game () {
-    let playerTotal = 0;
-    let computerTotal = 0;
-
-    //playing the game until someone reaches 5 wins
-    while (playerTotal <5 && computerTotal < 5){
-        const playerMove = prompt("Rock, Paper, or Scissors?");
-
-        const result = playRound(playerMove, computerPlay())
-
-        if(result === 0){
-            console.log(`It\'s a tie! The score is ${playerTotal} to ${computerTotal}` );
-        } else if(result === 1) {
-            playerTotal = ++playerTotal;
-            console.log(`Lets goooooooo! The score is now ${playerTotal} to ${computerTotal}`);
-        } else {
-            computerTotal = ++computerTotal;
-            console.log(`Can\'t win them all... The score is now ${playerTotal} to ${computerTotal}`);
-        }
+function gameComplete() {
+    if(wins === 5 || losses === 5){
+        alert("Game Over!");
+        gameOver = true;
     }
-
-    //determing the winner
-    if(playerTotal > computerTotal){
-        console.log('Winner, winner, chicken dinner!');
-    } else {
-        console.log('Hit the showers, kid.');
+    else {
+        return;
     }
 }
+
+//on a click of the button it should
+//1. get the type of what was clicked
+//2. play the game against the computer
+//3. update the scoreboard
+
+const button = document.querySelectorAll('button');
+button.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        playRound(e.srcElement.className);
+    });
+ });
