@@ -1,0 +1,30 @@
+button{
+    border-radius: 10%;
+    border: 2px solid darkgray;
+    transition-duration: 0.4s;
+    height: 50px;
+    width: 100px;
+    font-size: 15px;
+}
+
+.rock {
+    background-color: lightgray;
+}
+.rock:hover{
+    background-color: gray;
+}
+
+.paper {
+    background-color: white;
+}
+.paper:hover{
+    background-color: rgb(211, 211, 211);
+}
+
+.scissors {
+    background-color: tomato;
+}
+.scissors:hover {
+    background-color: red;
+}
+
